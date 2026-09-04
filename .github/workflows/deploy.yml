@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -31,8 +31,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check dist
+        run: |
+          echo "Files in dist:"
+          ls -la dist
+          echo "First lines of dist/index.html:"
+          head -n 10 dist/index.html
+
       - name: Upload dist
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 

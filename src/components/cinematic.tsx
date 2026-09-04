@@ -243,7 +243,7 @@ export function Transformation() {
         {/* battlefield base, dissolving */}
         <motion.div style={{ opacity: fieldOpacity, scale: fieldScale }} className="absolute inset-0">
           <img
-            src="/images/battlefield-panorama.jpg"
+            src={`${import.meta.env.BASE_URL}images/battlefield-panorama.jpg`}
             alt="The armies arrayed across the field of Kurukshetra"
             className="h-full w-full object-cover"
           />
@@ -399,7 +399,7 @@ export function BattlefieldMap() {
     <div className="relative">
       <div className="relative overflow-hidden rounded-[32px] border border-amberglow/25 shadow-lift">
         <CinematicImage
-          src="/images/battlefield-panorama.jpg"
+          src={`${import.meta.env.BASE_URL}images/battlefield-panorama.jpg`}
           alt="Panoramic view of the armies arrayed at Kurukshetra"
           className="aspect-[16/10] sm:aspect-[21/9]"
           hoverZoom={false}

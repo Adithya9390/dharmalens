@@ -38,7 +38,7 @@ interface Artwork {
 
 const GALLERY: Artwork[] = [
   {
-    src: "/images/kurukshetra-hero.jpg",
+    src: `${import.meta.env.BASE_URL}images/kurukshetra-hero.jpg`,
     title: "The Counsel of the Chariot",
     ep: "Krishna & Arjuna — the eve of Kurukshetra",
     ctx: "Paralysis at the moment of maximum stake. The answer given was not impulse but steadiness — govern the mind, then act from duty.",
@@ -47,7 +47,7 @@ const GALLERY: Artwork[] = [
     wide: true,
   },
   {
-    src: "/images/epic-dice-hall.jpg",
+    src: `${import.meta.env.BASE_URL}images/epic-dice-hall.jpg`,
     title: "The Dice Hall",
     ep: "Sabha Parva — the assembly of Hastinapura",
     ctx: "Escalation of commitment staged before a silent audience. The hall teaches twice: stop early, and let someone speak first.",
@@ -55,7 +55,7 @@ const GALLERY: Artwork[] = [
     scenarioId: "sunk-ship",
   },
   {
-    src: "/images/epic-bhishma.jpg",
+    src: `${import.meta.env.BASE_URL}images/epic-bhishma.jpg`,
     title: "Bhishma's Vigil",
     ep: "The bed of arrows — after the war",
     ctx: "The fallen guardian's closing counsel: vows serve order only while conscience accompanies them.",
@@ -63,7 +63,7 @@ const GALLERY: Artwork[] = [
     scenarioId: "mentors-mistake",
   },
   {
-    src: "/images/epic-karna.jpg",
+    src: `${import.meta.env.BASE_URL}images/epic-karna.jpg`,
     title: "Karna of the Golden Armor",
     ep: "Generosity, loyalty, and the sunken wheel",
     ctx: "He gave away what made him invincible — knowingly. Boundaries are the adult form of the open hand.",
@@ -71,7 +71,7 @@ const GALLERY: Artwork[] = [
     scenarioId: "open-the-armor",
   },
   {
-    src: "/images/battlefield-panorama.jpg",
+    src: `${import.meta.env.BASE_URL}images/battlefield-panorama.jpg`,
     title: "The Wheel Formation",
     ep: "The Chakravyuha — Drona Parva",
     ctx: "Brilliance at entry is not knowledge of exit. Commitments are judged by their reversibility.",
@@ -135,7 +135,7 @@ function CinematicHero() {
           className="h-full w-full"
         >
           <img
-            src="/images/kurukshetra-hero.jpg"
+            src={`${import.meta.env.BASE_URL}images/kurukshetra-hero.jpg`}
             alt="The chariot of Krishna and Arjuna on the battlefield of Kurukshetra at golden hour"
             className="h-full w-full scale-[1.03] object-cover object-[70%_center] sm:object-center"
           />

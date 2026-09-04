@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+/* ================================================================
+   DharmaLens — design tokens
+   LIGHT: ancient manuscript   |   DARK: Kurukshetra command centre
+   ================================================================ */
+
+:root {
+  --bg: #f7f4ed;
+  --paper: #faf7f0;
+  --cream: #f1e9da;
+  --ink: #18202d;
+  --soft: #667085;
+  --faint: #98a2b3;
+  --line: #e5e1d8;
+  --card: rgba(255, 255, 255, 0.8);
+  --card-hover: #ffffff;
+  --input-bg: #ffffff;
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-line: rgba(24, 32, 45, 0.08);
+  --gold: #a87932;
+  --bronze: #8c6239;
+  --crimson: #701f2b;
+  --navy: #111827;
+  --grain-op: 0.035;
+  --grain-blend: multiply;
+}
+
+[data-theme="dark"] {
+  --bg: #101827;
+  --paper: #141d2c;
+  --cream: #17212f;
+  --ink: #f1ecdf;
+  --soft: rgba(241, 236, 223, 0.62);
+  --faint: rgba(241, 236, 223, 0.38);
+  --line: rgba(231, 213, 170, 0.14);
+  --card: rgba(19, 28, 44, 0.72);
+  --card-hover: rgba(31, 43, 66, 0.9);
+  --input-bg: rgba(13, 20, 34, 0.85);
+  --glass: rgba(13, 19, 32, 0.68);
+  --glass-line: rgba(238, 189, 106, 0.14);
+  --crimson: #c46a76;
+  --grain-op: 0.08;
+  --grain-blend: screen;
+}
+
+@theme inline {
+  --color-ivory: #f5f0e6; /* constant: text on dark surfaces */
+  --color-paper: var(--paper);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-gold: var(--gold);
+  --color-bronze: var(--bronze);
+  --color-crimson: var(--crimson);
+  --color-saffron: #d9a54e;
+  --color-amberglow: #e0b866;
+  --color-navy: #101827;
+  --color-navy2: #16233a;
+  --color-obsidian: #0a0b0d;
+  --color-earth: #5a3d2b;
+
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-sans: "Inter", "system-ui", sans-serif;
+  --font-mono: "IBM Plex Mono", "ui-monospace", monospace;
+
+  --shadow-soft: 0 24px 48px -24px rgba(16, 24, 39, 0.24);
+  --shadow-lift: 0 34px 68px -26px rgba(16, 24, 39, 0.34);
+  --shadow-glow: 0 0 0 1px rgba(199, 146, 62, 0.28), 0 20px 48px -18px rgba(199, 146, 62, 0.42);
+
+  --animate-spin-slow: spin 90s linear infinite;
+  --animate-spin-slower: spin 160s linear infinite;
+  --animate-dash-flow: dashflow 2.6s linear infinite;
+  --animate-float-slow: floaty 7s ease-in-out infinite;
+  --animate-pulse-ring: pulsering 2.4s ease-out infinite;
+  --animate-shimmer: shimmer 2.8s linear infinite;
+  --animate-cue: cue 2.2s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* film grain — static, zero repaints */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: var(--grain-op);
+  mix-blend-mode: var(--grain-blend);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: rgba(199, 146, 62, 0.4);
+  color: #101827;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(199, 146, 62, 0.4);
+  border-radius: 8px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* animated theme transition — scoped, temporary */
+html.theming,
+html.theming *,
+html.theming *::before,
+html.theming *::after {
+  transition:
+    background-color 0.55s ease,
+    border-color 0.55s ease,
+    color 0.45s ease,
+    box-shadow 0.55s ease,
+    fill 0.55s ease,
+    stroke 0.55s ease !important;
+}
+
+/* dark-mode surface stratum for hard-coded white utilities */
+[data-theme="dark"] .bg-white\/70,
+[data-theme="dark"] .bg-white\/65,
+[data-theme="dark"] .bg-white\/60,
+[data-theme="dark"] .bg-white\/50,
+[data-theme="dark"] .bg-white\/40 {
+  background-color: var(--card);
+}
+[data-theme="dark"] .bg-white\/80 {
+  background-color: var(--input-bg);
+}
+[data-theme="dark"] .hover\:bg-white:hover {
+  background-color: var(--card-hover);
+}
+
+/* ----------------------------- keyframes ----------------------------- */
+@keyframes dashflow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+@keyframes pulsering {
+  0% {
+    box-shadow: 0 0 0 0 rgba(199, 146, 62, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(199, 146, 62, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(199, 146, 62, 0);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes cue {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* ------------------------------ utilities ---------------------------- */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-line);
+}
+
+.glass-dark {
+  background: rgba(16, 24, 39, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(238, 194, 119, 0.18);
+}
+
+.paper-grain {
+  background-image: radial-gradient(rgba(23, 32, 51, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+[data-theme="dark"] .paper-grain {
+  background-image: radial-gradient(rgba(238, 194, 119, 0.05) 1px, transparent 1px);
+}
+
+.gold-rule {
+  background: linear-gradient(90deg, transparent, rgba(199, 146, 62, 0.65), transparent);
+  height: 1px;
+}
+
+.text-shimmer {
+  background: linear-gradient(110deg, var(--gold) 20%, #f3d9a0 40%, var(--gold) 60%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3.2s linear infinite;
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1.5px;
+  width: 100%;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after,
+.link-underline[data-active="true"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* manuscript panel — The Ancient Lens */
+.manuscript {
+  border: 1px solid rgba(199, 146, 62, 0.3);
+  background:
+    linear-gradient(rgba(18, 26, 42, 0.93), rgba(13, 19, 33, 0.97)),
+    url(/images/manuscript-dark.jpg) center / cover;
+  background-blend-mode: normal;
+  box-shadow:
+    inset 0 0 90px rgba(0, 0, 0, 0.5),
+    0 40px 90px -40px rgba(0, 0, 0, 0.7);
+}
+
+.parchment {
+  background:
+    linear-gradient(rgba(245, 240, 230, 0.86), rgba(245, 240, 230, 0.94)),
+    url(/images/parchment-texture.jpg) center / cover;
+}
+[data-theme="dark"] .parchment {
+  background:
+    linear-gradient(rgba(20, 29, 45, 0.9), rgba(16, 24, 39, 0.96)),
+    url(/images/manuscript-dark.jpg) center / cover;
+}
+
+.mask-fade-b {
+  -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+}
+
+/* ================= design-system normalization =================
+   One radius language: sm 8 / buttons 10 / cards 16 / feature 20 */
+.rounded-\[26px\],
+.rounded-\[28px\],
+.rounded-\[30px\],
+.rounded-\[32px\],
+.rounded-\[36px\],
+.rounded-\[40px\] {
+  border-radius: 20px !important;
+}
+.rounded-3xl {
+  border-radius: 16px !important;
+}
+input.rounded-2xl,
+textarea.rounded-2xl,
+select.rounded-2xl {
+  border-radius: 10px !important;
+}
+/* consistent interactive hover */
+a, button { transition-property: color, background-color, border-color, box-shadow, transform, opacity; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
